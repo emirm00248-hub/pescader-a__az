@@ -51,11 +51,11 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir public
-          cp index.html public/
-          cp style.css public/
-          cp app.js public/
-          cp logo.jpeg public/
-          cp -r imagen.png public/ || true
+          cp wwwroot/index.html public/
+          cp wwwroot/style.css public/
+          cp wwwroot/app.js public/
+          cp wwwroot/logo.jpeg public/
+          cp -r wwwroot/imagen.png public/ || true
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
