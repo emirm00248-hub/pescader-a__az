@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pescadería Azcorra | Menú Digital</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="#offers" class="nav-link">Ofertas</a>
+                <a href="#menu" class="nav-link">Menú</a>
+                <a href="#location" class="nav-link">Ubicación</a>
+            </nav>
+            <button class="cart-btn" id="open-cart-btn">
+                <i class="fa-solid fa-shopping-basket"></i>
+                <span class="cart-count" id="cart-badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-actions">
+                <a href="#menu" class="btn btn-primary">Ver el Menú <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="#location" class="btn btn-secondary">Cómo Llegar <i
+                        class="fa-solid fa-map-location-dot"></i></a>
+            </div>
+        </div>
+        <div class="hero-shapes">
+            <div class="shape circle-1"></div>
+            <div class="shape circle-2"></div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="section offers-section" id="offers">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">Promociones del Día</span>
+                <h2>Ofertas Especiales</h2>
+                <p>Aprovecha nuestros descuentos especiales de la semana en pescados y mariscos seleccionados.</p>
+            </div>
+            <div class="offers-grid" id="offers-container">
+                <!-- Dynamic offers will load here -->
+                <div class="loading-placeholder">Cargando ofertas...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section menu-section" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">Nuestro Catálogo</span>
+                <h2>El Menú de la Casa</h2>
+                <p>Ingredientes de primera calidad cocinados al momento o frescos para preparar.</p>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="categories-tabs" id="categories-tabs">
+                <button class="tab-btn active" data-category="todos">Todos</button>
+                <button class="tab-btn" data-category="Platillos">Platillos</button>
+                <button class="tab-btn" data-category="Frituras">Frituras</button>
+                <button class="tab-btn" data-category="Mariscos Frescos">Mariscos Frescos</button>
+                <button class="tab-btn" data-category="Tostadas">Tostadas</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="products-container">
+                <!-- Dynamic products will load here -->
+                <div class="loading-placeholder">Cargando menú...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Directions Section -->
+    <section class="section location-section" id="location">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title">Encuéntranos</span>
+                <h2>Ubicación y Contacto</h2>
+                <p>Ven por tu pedido o visítanos en nuestro local en la Col. Azcorra, Mérida.</p>
+            </div>
+
+            <div class="location-grid">
+                <!-- Info Column -->
+                <div class="location-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fa-solid fa-map-pin"></i>
+                        </div>
+                        <div class="info-details">
+                            <h3>Dirección Principal</h3>
+                            <p>Calle 28 #268 por 16, Col. Azcorra, 97177 Mérida, Yuc.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="info-details">
+                            <h3>Teléfono de Pedidos</h3>
+                            <p>999 214 5724</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="info-details">
+                            <h3>Horario de Atención</h3>
+                            <p>Lunes a Domingo: 8:00 AM - 6:00 PM</p>
+                            <span class="days-hint">*Cazón disponible únicamente Miércoles y Viernes</span>
+                        </div>
+                    </div>
+
+                    <div class="direction-actions">
+                        <a href="https://maps.google.com/?q=Pescadería+Azcorra,+Calle+28,+Azcorra,+Mérida,+Yucatán" target="_blank"
+                            class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-location-arrow"></i> ¿Cómo llegar? (Abrir Google Maps)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Map Column -->
+                <div class="location-map">
+                    <!-- Standard Google Maps iframe placeholder, pointed to Progreso, Yucatan -->
+                    <iframe
+                        src="https://maps.google.com/maps?q=Pescadería%20Azcorra,%20Calle%2028,%20Azcorra,%20Mérida,%20Yucatán&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Pescadería Azcorra. Todos los derechos reservados.</p>
+            <p class="footer-note">Sabor fresco y calidad marina desde la Col. Azcorra, Mérida, Yucatán.</p>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-modal-btn">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <div class="modal-body" id="modal-body-content">
+                <!-- Dynamic content loaded via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar/Drawer -->
+    <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>Tu Pedido</h3>
+            <button class="cart-close-btn" id="close-cart-btn">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div class="cart-items" id="cart-items-container">
+            <!-- Dynamic items loaded via JS -->
+            <div class="empty-cart-state">
+                <i class="fa-solid fa-shopping-basket"></i>
+                <p>Tu carrito está vacío</p>
+                <a href="#menu" class="btn btn-secondary btn-sm" id="empty-cart-browse">Explorar Menú</a>
+            </div>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="cart-summary" id="cart-summary-section">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="summary-subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>IVA (16%)</span>
+                <span id="summary-tax">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Envío</span>
+                <span id="summary-shipping">$0.00</span>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <span id="summary-total">$0.00</span>
+            </div>
+
+            <!-- Checkout Form -->
+            <form class="checkout-form" id="checkout-form">
+                <h4>Datos de Entrega</h4>
+                <div class="form-group">
+                    <label for="cust-name">Nombre completo</label>
+                    <input type="text" id="cust-name" required placeholder="Ej. María González">
+                </div>
+                <div class="form-group">
+                    <label for="cust-phone">Teléfono de contacto</label>
+                    <input type="tel" id="cust-phone" required placeholder="Ej. 999 214 5724">
+                </div>
+                <div class="form-group">
+                    <label>Método de entrega</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="delivery-method" value="pickup" checked>
+                            <span>Recoger en Tienda</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="delivery-method" value="delivery">
+                            <span>A Domicilio</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="address-group" style="display: none;">
+                    <label for="cust-address">Dirección de entrega</label>
+                    <textarea id="cust-address" placeholder="Calle, número, cruzamientos y colonia"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block checkout-submit-btn" id="submit-order-btn">
+                    <i class="fa-brands fa-whatsapp"></i> Confirmar y Enviar por WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span class="toast-message">Producto agregado al carrito</span>
+    </div>
+
+    <!-- Bottom Navigation Bar (Visible only on Mobile/Tablet) -->
+    <nav class="bottom-nav">
+        <a href="#offers" class="bottom-nav-item active" id="btn-nav-offers">
+            <i class="fa-solid fa-tags"></i>
+            <span>Ofertas</span>
+        </a>
+        <a href="#menu" class="bottom-nav-item" id="btn-nav-menu">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Menú</span>
+        </a>
+        <a href="#location" class="bottom-nav-item" id="btn-nav-location">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Ubicación</span>
+        </a>
+        <a href="#" class="bottom-nav-item" id="btn-nav-cart">
+            <div class="nav-cart-wrapper">
+                <i class="fa-solid fa-shopping-basket"></i>
+                <span class="cart-count-badge" id="bottom-cart-badge">0</span>
+            </div>
+            <span>Carrito</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>
