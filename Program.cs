@@ -94,14 +94,15 @@ app.MapPost("/api/orders", (OrderInput input) =>
         ));
     }
 
-    decimal tax = subtotal * 0.16m;
-    decimal total = subtotal + tax + input.ShippingCost;
+    decimal tax = 0m;
+    decimal total = subtotal + input.ShippingCost;
 
     var newOrder = new Order(
         orderId,
         input.CustomerName,
         input.CustomerPhone,
         input.DeliveryMethod,
+        input.PaymentMethod ?? "efectivo",
         input.ShippingAddress,
         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
         orderItems,
@@ -154,6 +155,7 @@ public record Order(
     string CustomerName,
     string CustomerPhone,
     string DeliveryMethod, // "pickup" | "delivery"
+    string PaymentMethod,
     string ShippingAddress,
     string Date,
     List<OrderItem> Items,
@@ -172,6 +174,7 @@ public record OrderInput(
     string CustomerName,
     string CustomerPhone,
     string DeliveryMethod,
+    string PaymentMethod,
     string ShippingAddress,
     decimal ShippingCost,
     List<OrderItemInput> Items

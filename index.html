@@ -198,10 +198,6 @@
                 <span id="summary-subtotal">$0.00</span>
             </div>
             <div class="summary-row">
-                <span>IVA (16%)</span>
-                <span id="summary-tax">$0.00</span>
-            </div>
-            <div class="summary-row">
                 <span>Envío</span>
                 <span id="summary-shipping">$0.00</span>
             </div>
@@ -219,7 +215,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cust-phone">Teléfono de contacto</label>
-                    <input type="tel" id="cust-phone" required placeholder="Ej. 999 214 5724">
+                    <input type="tel" id="cust-phone" required placeholder="Ej. 999 000 0000">
                 </div>
                 <div class="form-group">
                     <label>Método de entrega</label>
@@ -237,6 +233,20 @@
                 <div class="form-group" id="address-group" style="display: none;">
                     <label for="cust-address">Dirección de entrega</label>
                     <textarea id="cust-address" placeholder="Calle, número, cruzamientos y colonia"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Método de pago</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="payment-method" value="efectivo" checked>
+                            <span>Efectivo</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment-method" value="transferencia">
+                            <span>Transferencia</span>
+                        </label>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block checkout-submit-btn" id="submit-order-btn">

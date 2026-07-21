@@ -296,7 +296,6 @@ const emptyCartBrowse = document.getElementById('empty-cart-browse');
 
 // Elementos de Totales del Carrito
 const summarySubtotal = document.getElementById('summary-subtotal');
-const summaryTax = document.getElementById('summary-tax');
 const summaryShipping = document.getElementById('summary-shipping');
 const summaryTotal = document.getElementById('summary-total');
 
@@ -658,16 +657,14 @@ function updateCartUI() {
 
     // Calcular Totales
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.16;
     
     // Costo de envío
     const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
     const shipping = deliveryMethod === 'delivery' ? 35 : 0; // $35 envío local Mérida
     
-    const total = subtotal + tax + shipping;
+    const total = subtotal + shipping;
 
     summarySubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    summaryTax.textContent = `$${tax.toFixed(2)}`;
     summaryShipping.textContent = `$${shipping.toFixed(2)}`;
     summaryTotal.textContent = `$${total.toFixed(2)}`;
 }
@@ -713,21 +710,27 @@ function closeCart() {
 async function handleCheckoutSubmit(e) {
     e.preventDefault();
     
+    const submitBtn = document.getElementById('submit-order-btn');
+    if (submitBtn) submitBtn.disabled = true;
+
+    
     const custName = document.getElementById('cust-name').value;
     const custPhone = document.getElementById('cust-phone').value;
     const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
+    const paymentMethodInput = document.querySelector('input[name="payment-method"]:checked');
+    const paymentMethod = paymentMethodInput ? paymentMethodInput.value : 'efectivo';
     const custAddress = custAddressInput.value;
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.16;
     const shippingCost = deliveryMethod === 'delivery' ? 35 : 0;
-    const total = subtotal + tax + shippingCost;
+    const total = subtotal + shippingCost;
 
     // Crear DTO para el Servidor de C#
     const orderData = {
         customerName: custName,
         customerPhone: custPhone,
         deliveryMethod: deliveryMethod,
+        paymentMethod: paymentMethod,
         shippingAddress: deliveryMethod === 'delivery' ? custAddress : 'Recoger en local Azcorra',
         shippingCost: shippingCost,
         items: cart.map(item => ({
@@ -769,9 +772,9 @@ async function handleCheckoutSubmit(e) {
             customerName: custName,
             customerPhone: custPhone,
             deliveryMethod: deliveryMethod,
+            paymentMethod: paymentMethod,
             shippingAddress: deliveryMethod === 'delivery' ? custAddress : 'Recoger en local Azcorra',
             subtotal: subtotal,
-            tax: tax,
             shipping: shippingCost,
             total: total,
             items: cart
@@ -783,6 +786,8 @@ async function handleCheckoutSubmit(e) {
         updateCartUI();
         closeCart();
     }
+    
+    if (submitBtn) submitBtn.disabled = false;
 }
 
 // Redireccionar al WhatsApp de Pescadería con el Formato de Pedido
@@ -799,22 +804,27 @@ function sendWhatsAppOrder(order) {
     }).join('\n');
 
     const methodLabel = order.deliveryMethod === 'delivery' ? '🚗 A Domicilio' : '🏪 Recoger en Tienda';
+    const paymentLabel = order.paymentMethod === 'transferencia' ? '💳 Transferencia' : '💵 Efectivo';
     
-    const text = `🐟 *NUEVO PEDIDO - PESCADERÍA AZCORRA*\n\n` +
-                 `*ID de Pedido:* ${order.id}\n` +
+    const text = `🐟 *NUEVO PEDIDO - PESCADERÍA AZCORRA*\n` +
+                 `*(Por favor, espera a que confirmemos tu pedido)*\n` +
+                 `*(El tiempo estimado para que salga la orden será de 50 minutos)*\n\n` +
                  `*Cliente:* ${order.customerName}\n` +
                  `*Teléfono:* ${order.customerPhone}\n` +
-                 `*Método:* ${methodLabel}\n` +
+                 `*Método de Entrega:* ${methodLabel}\n` +
+                 `*Método de Pago:* ${paymentLabel}\n` +
                  (order.deliveryMethod === 'delivery' ? `*Dirección:* ${order.shippingAddress}\n` : '') +
                  `\n*Detalles de Compra:*\n${itemsMessage}\n\n` +
-                 `*Subtotal:* $${order.subtotal.toFixed(2)}\n` +
-                 `*IVA:* $${order.tax.toFixed(2)}\n` +
-                 `*Envío:* $${order.shipping.toFixed(2)}\n` +
-                 `*Total a pagar:* $${order.total.toFixed(2)}\n\n` +
+                 `*Subtotal:* $${(order.subtotal !== undefined ? order.subtotal : order.items.reduce((s,i) => s + (i.price*i.quantity), 0)).toFixed(2)}\n` +
+                 `*Envío:* $${(order.shipping !== undefined ? order.shipping : (order.shippingCost || 0)).toFixed(2)}\n` +
+                 `*Total a pagar:* $${(order.total !== undefined ? order.total : order.items.reduce((s,i) => s + (i.price*i.quantity), 0) + (order.shippingCost || 0)).toFixed(2)}\n\n` +
                  `¡Gracias por tu preferencia! 🌊`;
 
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodedText}`;
+
+    // Alerta al usuario
+    alert('Por favor, asegúrate de tener tu sesión de WhatsApp iniciada para poder enviar el pedido.');
 
     // Abrir WhatsApp en pestaña nueva
     window.open(whatsappUrl, '_blank');
