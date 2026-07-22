@@ -187,8 +187,8 @@ body {
 .nav-link {
     text-decoration: none;
     color: var(--text-muted);
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.25rem;
     transition: var(--transition);
     position: relative;
 }
@@ -1293,15 +1293,15 @@ body {
 
 @media (max-width: 600px) {
     .hero {
-        height: 280px;
-        background-size: contain;
+        height: 180px;
+        background-size: 85% auto;
         background-color: #ffffff;
         margin-bottom: 120px;
         position: relative;
     }
     .hero-content {
         position: absolute;
-        top: 290px;
+        top: 200px;
         left: 0;
         width: 100%;
         display: flex;

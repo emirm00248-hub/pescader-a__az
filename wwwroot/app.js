@@ -18,7 +18,7 @@ const LOCAL_PRODUCTS = [
         availableForPickup: true,
         availableForDelivery: true,
         isOffer: true,
-        offerPrice: 100,
+        offerPrice: 120,
         ingredients: ["Filete de pescado", "Pan molido", "Especias", "Arroz", "Frijoles", "Tortillas"],
         preparationTime: "15 min",
         origin: "Mérida, Yucatán"
@@ -50,7 +50,7 @@ const LOCAL_PRODUCTS = [
         availableForPickup: true,
         availableForDelivery: true,
         isOffer: true,
-        offerPrice: 150,
+        offerPrice: 170,
         ingredients: ["Camarón fresco", "Empanizador", "Arroz", "Frijoles", "Tortillas", "Ensalada"],
         preparationTime: "18 min",
         origin: "Campeche, México"
@@ -372,7 +372,7 @@ function renderProducts(category) {
 
 // Crear el HTML de la Tarjeta del Producto (Sin imágenes reales, usando placeholder marino)
 function createProductCard(product) {
-    const originalPriceHtml = product.isOffer && product.offerPrice 
+    const originalPriceHtml = product.isOffer && product.offerPrice && product.offerPrice < product.price
         ? `<span class="original-price">$${product.price}</span>` 
         : '';
     const currentPrice = product.isOffer && product.offerPrice ? product.offerPrice : product.price;
@@ -393,7 +393,8 @@ function createProductCard(product) {
             <div class="product-weight">${product.weight}</div>
             
             <div class="product-img-placeholder clickable-trigger">
-                <i class="fa-solid ${iconClass}"></i>
+                <img src="images/product-${product.id}.jpg" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px 8px 0 0;" />
+                <i class="fa-solid ${iconClass}" style="display: none;"></i>
             </div>
             
             <div class="product-info">
@@ -455,8 +456,9 @@ function openProductDetails(id) {
     if (!product) return;
 
     const currentPrice = product.isOffer && product.offerPrice ? product.offerPrice : product.price;
+    const showOriginalPrice = product.isOffer && product.offerPrice && product.offerPrice < product.price;
     const priceDetails = product.isOffer && product.offerPrice 
-        ? `<div class="price-box has-offer"><span class="original-price">$${product.price} M.N.</span><span class="current-price" style="font-size: 1.8rem; color: var(--offer-color);">$${product.offerPrice} M.N.</span></div>`
+        ? `<div class="price-box has-offer">${showOriginalPrice ? `<span class="original-price">$${product.price} M.N.</span>` : ''}<span class="current-price" style="font-size: 1.8rem; color: var(--offer-color);">$${product.offerPrice} M.N.</span></div>`
         : `<span class="current-price" style="font-size: 1.8rem;">$${product.price} M.N.</span>`;
 
     // Lista de ingredientes formateados
@@ -792,7 +794,7 @@ async function handleCheckoutSubmit(e) {
 
 // Redireccionar al WhatsApp de Pescadería con el Formato de Pedido
 function sendWhatsAppOrder(order) {
-    const businessPhone = '529992145724'; // Número de Pescaderia
+    const businessPhone = '529992428242'; // Número de Pescaderia
     
     // Formatear items del pedido
     const itemsMessage = order.items.map(item => {
