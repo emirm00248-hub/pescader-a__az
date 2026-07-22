@@ -628,7 +628,8 @@ function updateCartUI() {
         return `
             <div class="cart-item">
                 <div class="cart-item-placeholder">
-                    <i class="fa-solid ${iconClass}"></i>
+                    <img src="images/product-${item.productId}.jpg" alt="${item.productName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
+                    <i class="fa-solid ${iconClass}" style="display: none;"></i>
                 </div>
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.productName}</div>
