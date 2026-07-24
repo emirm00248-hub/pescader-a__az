@@ -159,26 +159,6 @@ body {
     justify-content: space-between;
 }
 
-.logo {
-    text-decoration: none;
-}
-
-.logo-wrapper {
-    display: flex;
-    align-items: center;
-}
-
-.logo-img {
-    height: 50px;
-    width: auto;
-    object-fit: contain;
-    transition: var(--transition);
-}
-
-.logo:hover .logo-img {
-    transform: scale(1.05);
-}
-
 .nav-menu {
     display: flex;
     gap: 32px;
@@ -1118,39 +1098,6 @@ body {
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
 }
 
-/* Toast */
-.toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background-color: var(--primary-dark);
-    color: #ffffff;
-    padding: 12px 30px;
-    border-radius: 50px;
-    box-shadow: 0 10px 25px rgba(10, 53, 84, 0.25);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    z-index: 3000;
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s, visibility 0.4s;
-    pointer-events: none;
-}
-
-.toast.active {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-    visibility: visible;
-}
-
-.toast-icon {
-    color: var(--accent);
-}
-
 /* Footer */
 .footer {
     background-color: var(--primary-dark);
@@ -1169,12 +1116,6 @@ body {
     font-size: 0.8rem !important;
     opacity: 0.5;
     margin-top: 8px;
-}
-
-/* Animaciones */
-@keyframes sway {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(10deg); }
 }
 
 /* Bottom Navigation Bar (Móvil) */
@@ -1252,9 +1193,6 @@ body {
     .location-grid {
         grid-template-columns: 1fr;
     }
-    .hero h1 {
-        font-size: 2.8rem;
-    }
 }
 
 @media (max-width: 768px) {
@@ -1285,10 +1223,6 @@ body {
         right: 0;
     }
 
-    /* Evitar que el toast tape la barra de navegación inferior */
-    .toast {
-        bottom: 85px;
-    }
 }
 
 @media (max-width: 600px) {

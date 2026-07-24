@@ -56,7 +56,6 @@ jobs:
           cp wwwroot/app.js public/
           cp wwwroot/logo.jpeg public/
           cp -r wwwroot/images public/ || true
-          cp -r wwwroot/imagen.png public/ || true
           
       - name: Setup Pages
         uses: actions/configure-pages@v4

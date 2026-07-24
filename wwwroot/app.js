@@ -292,7 +292,6 @@ const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
 const cartItemsContainer = document.getElementById('cart-items-container');
 const openCartBtn = document.getElementById('open-cart-btn');
 const closeCartBtn = document.getElementById('close-cart-btn');
-const emptyCartBrowse = document.getElementById('empty-cart-browse');
 
 // Elementos de Totales del Carrito
 const summarySubtotal = document.getElementById('summary-subtotal');
@@ -310,8 +309,6 @@ const productModal = document.getElementById('product-modal');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const modalBodyContent = document.getElementById('modal-body-content');
 
-// Elementos de Toast
-const toast = document.getElementById('toast');
 
 // Inicializar la Aplicación
 document.addEventListener('DOMContentLoaded', () => {
@@ -554,7 +551,6 @@ function addToCart(id) {
 
     saveCart();
     updateCartUI();
-    showToast(`"${product.name}" agregado al carrito`);
 }
 
 function removeFromCart(id) {
@@ -766,7 +762,6 @@ async function handleCheckoutSubmit(e) {
         updateCartUI();
         closeCart();
         
-        showToast('¡Pedido enviado con éxito!');
     } catch (error) {
         console.error('Error al registrar pedido:', error);
         // Si el backend falla, de todas formas enviamos por WhatsApp para no perder el pedido
@@ -833,10 +828,6 @@ function sendWhatsAppOrder(order) {
     window.open(whatsappUrl, '_blank');
 }
 
-// Mostrar Toast (desactivado para evitar obstrucciones en la UI móvil)
-function showToast(message) {
-    // Desactivado
-}
 
 // Controladores de Eventos de la Barra de Navegación Inferior (Móvil/Tablet)
 document.addEventListener('DOMContentLoaded', () => {
