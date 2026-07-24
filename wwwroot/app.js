@@ -5,280 +5,95 @@ let cart = JSON.parse(localStorage.getItem('pescaderia_cart')) || [];
 // Configuración de la API
 const API_URL = window.location.origin;
 
-// Catálogo de Productos Local (Respaldo para GitHub Pages sin backend)
-const LOCAL_PRODUCTS = [
-    {
-        id: "1",
-        name: "Pescado Empanizado (Orden)",
-        description: "Incluye pescado empanizado acompañado de arroz, frijol, tortillas y guarnición.",
-        price: 120,
-        category: "Platillos",
-        weight: "Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: true,
-        offerPrice: 120,
-        ingredients: ["Filete de pescado", "Pan molido", "Especias", "Arroz", "Frijoles", "Tortillas"],
-        preparationTime: "15 min",
-        origin: "Mérida, Yucatán"
-    },
-    {
-        id: "2",
-        name: "Pescado Empanizado (Media Orden)",
-        description: "Incluye arroz, frijol, tortillas y guarnición. Una porción menor de pescado.",
-        price: 90,
-        category: "Platillos",
-        weight: "Media Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Filete de pescado", "Pan molido", "Arroz", "Frijoles", "Tortillas"],
-        preparationTime: "12 min",
-        origin: "Mérida, Yucatán"
-    },
-    {
-        id: "3",
-        name: "Camarón Empanizado (Orden)",
-        description: "Incluye camarones empanizados de primera, arroz, frijol, tortillas y guarnición.",
-        price: 170,
-        category: "Platillos",
-        weight: "Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: true,
-        offerPrice: 170,
-        ingredients: ["Camarón fresco", "Empanizador", "Arroz", "Frijoles", "Tortillas", "Ensalada"],
-        preparationTime: "18 min",
-        origin: "Campeche, México"
-    },
-    {
-        id: "4",
-        name: "Camarón Empanizado (Media Orden)",
-        description: "Incluye arroz, frijol, tortillas y guarnición. Porción menor de camarones.",
-        price: 120,
-        category: "Platillos",
-        weight: "Media Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Camarón fresco", "Empanizador", "Arroz", "Frijoles", "Tortillas"],
-        preparationTime: "15 min",
-        origin: "Campeche, México"
-    },
-    {
-        id: "5",
-        name: "Cóctel de Camarón (Copa)",
-        description: "Cóctel preparado de camarón fresco con salsa especial de la casa, cilantro, cebolla y aguacate.",
-        price: 160,
-        category: "Platillos",
-        weight: "Copa",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Camarón cocido", "Salsa coctelera", "Aguacate", "Cebolla", "Cilantro"],
-        preparationTime: "10 min",
-        origin: "Yucatán"
-    },
-    {
-        id: "6",
-        name: "Cazón Frito (Orden)",
-        description: "Orden de cazón frito tradicional. Disponible únicamente miércoles y viernes.",
-        price: 110,
-        category: "Platillos",
-        weight: "Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: true,
-        offerPrice: 95,
-        ingredients: ["Cazón fresco", "Aceite vegetal", "Especias", "Acompañamientos"],
-        preparationTime: "20 min",
-        origin: "Golfo de México"
-    },
-    {
-        id: "7",
-        name: "Cazón Frito (Media Orden)",
-        description: "Media orden de cazón frito tradicional. Disponible únicamente miércoles y viernes.",
-        price: 75,
-        category: "Platillos",
-        weight: "Media Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Cazón fresco", "Aceite vegetal", "Acompañamientos"],
-        preparationTime: "15 min",
-        origin: "Golfo de México"
-    },
-    {
-        id: "8",
-        name: "Cazón Entomatado (Orden)",
-        description: "Delicioso cazón guisado con salsa de tomate y epazote. Disponible únicamente miércoles y viernes.",
-        price: 110,
-        category: "Platillos",
-        weight: "Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Cazón desmenuzado", "Tomates", "Cebolla", "Epazote"],
-        preparationTime: "20 min",
-        origin: "Yucatán"
-    },
-    {
-        id: "9",
-        name: "Cazón Entomatado (Media Orden)",
-        description: "Media orden de cazón guisado con salsa de tomate. Disponible únicamente miércoles y viernes.",
-        price: 75,
-        category: "Platillos",
-        weight: "Media Orden",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Cazón desmenuzado", "Tomates", "Cebolla", "Epazote"],
-        preparationTime: "15 min",
-        origin: "Yucatán"
-    },
-    {
-        id: "10",
-        name: "Camarón Fresco Crudo",
-        description: "Camarón crudo fresco sin cáscara ni cabeza. Medida Premium 21/25 ideal para platillos gourmet.",
-        price: 260,
-        category: "Mariscos Frescos",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Camarón crudo desvenado"],
-        preparationTime: "5 min",
-        origin: "Campeche, México"
-    },
-    {
-        id: "11",
-        name: "Camarón Cocido con Cabeza",
-        description: "Camarón cocido entero con cabeza. Medida estándar 41/50 listo para cocteles.",
-        price: 150,
-        category: "Mariscos Frescos",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Camarón cocido entero"],
-        preparationTime: "5 min",
-        origin: "Celestún, Yucatán"
-    },
-    {
-        id: "12",
-        name: "Cazón Fresco Rebanado",
-        description: "Filete o rebanadas de cazón fresco, limpio y listo para preparar en casa.",
-        price: 120,
-        category: "Mariscos Frescos",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Filete de cazón fresco"],
-        preparationTime: "5 min",
-        origin: "Mérida, Yucatán"
-    },
-    {
-        id: "13",
-        name: "Tostada Bolsa Grande",
-        description: "Bolsa grande de tostadas de maíz crujientes, ideales para acompañar ceviches y mariscos. (400g)",
-        price: 50,
-        category: "Tostadas",
-        weight: "Bolsa 400g",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Maíz", "Aceite", "Sal"],
-        preparationTime: "3 min",
-        origin: "Mérida, Yucatán"
-    },
-    {
-        id: "14",
-        name: "Tostada Bolsa Mediana",
-        description: "Bolsa mediana de tostadas de maíz crujientes. (150g)",
-        price: 18,
-        category: "Tostadas",
-        weight: "Bolsa 150g",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Maíz", "Aceite", "Sal"],
-        preparationTime: "3 min",
-        origin: "Mérida, Yucatán"
-    },
-    {
-        id: "15",
-        name: "Postas de Camarón Fritas",
-        description: "Camarones sazonados y fritos al momento. Se vende por kilogramo.",
-        price: 360,
-        category: "Frituras",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Camarón entero", "Harina", "Sal", "Ajo"],
-        preparationTime: "15 min",
-        origin: "Yucatán"
-    },
-    {
-        id: "16",
-        name: "Pescado Frito Corvinal",
-        description: "Postas o filetes fritos de pescado Corvina de alta calidad. Se vende por kilogramo.",
-        price: 330,
-        category: "Frituras",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Pescado Corvina", "Aceite", "Limón", "Sal"],
-        preparationTime: "15 min",
-        origin: "Sisal, Yucatán"
-    },
-    {
-        id: "17",
-        name: "Pecho Frito de Mero",
-        description: "Especialidad de la casa: pecho de Mero frito y crujiente. Se vende por kilogramo.",
-        price: 330,
-        category: "Frituras",
-        weight: "Kilogramo",
-        available: true,
-        availableForPickup: true,
-        availableForDelivery: true,
-        isOffer: false,
-        offerPrice: null,
-        ingredients: ["Pecho de Mero", "Adobo de la casa", "Aceite"],
-        preparationTime: "18 min",
-        origin: "Mérida, Yucatán"
+// Clases de Dominio (POO, Encapsulamiento y Herencia)
+class ProductBase {
+    // Encapsulamiento con campos privados
+    #id; #name; #description; #price; #category; #weight;
+    #available; #isOffer; #offerPrice; #ingredients; #preparationTime; #origin;
+
+    constructor(id, name, description, price, category, weight, available, isOffer, offerPrice, ingredients, preparationTime, origin) {
+        this.#id = id;
+        this.#name = name;
+        this.#description = description;
+        this.#price = price;
+        this.#category = category;
+        this.#weight = weight;
+        this.#available = available;
+        this.#isOffer = isOffer;
+        this.#offerPrice = offerPrice;
+        this.#ingredients = ingredients || [];
+        this.#preparationTime = preparationTime;
+        this.#origin = origin;
     }
+
+    // Getters públicos (protege la información contra modificaciones accidentales)
+    get id() { return this.#id; }
+    get name() { return this.#name; }
+    get description() { return this.#description; }
+    get price() { return this.#price; }
+    get category() { return this.#category; }
+    get weight() { return this.#weight; }
+    get available() { return this.#available; }
+    get isOffer() { return this.#isOffer; }
+    get offerPrice() { return this.#offerPrice; }
+    get ingredients() { return this.#ingredients; }
+    get preparationTime() { return this.#preparationTime; }
+    get origin() { return this.#origin; }
+
+    // Método polimórfico base
+    getSummary() {
+        return `${this.#name} - $${this.#price}`;
+    }
+}
+
+// Subclases (Herencia)
+class PlatilloProduct extends ProductBase {
+    constructor(id, name, description, price, weight, available, isOffer, offerPrice, ingredients, preparationTime, origin) {
+        super(id, name, description, price, "Platillos", weight, available, isOffer, offerPrice, ingredients, preparationTime, origin);
+    }
+    
+    getSummary() {
+        return `[Platillo Preparado] ${this.name} - Listo en ${this.preparationTime}`;
+    }
+}
+
+class MariscoFrescoProduct extends ProductBase {
+    constructor(id, name, description, price, weight, available, isOffer, offerPrice, ingredients, preparationTime, origin) {
+        super(id, name, description, price, "Mariscos Frescos", weight, available, isOffer, offerPrice, ingredients, preparationTime, origin);
+    }
+}
+
+class FrituraProduct extends ProductBase {
+    constructor(id, name, description, price, weight, available, isOffer, offerPrice, ingredients, preparationTime, origin) {
+        super(id, name, description, price, "Frituras", weight, available, isOffer, offerPrice, ingredients, preparationTime, origin);
+    }
+}
+
+class TostadaProduct extends ProductBase {
+    constructor(id, name, description, price, weight, available, isOffer, offerPrice, ingredients, preparationTime, origin) {
+        super(id, name, description, price, "Tostadas", weight, available, isOffer, offerPrice, ingredients, preparationTime, origin);
+    }
+}
+
+// Catálogo de Productos Local utilizando Clases Instanciadas (Demuestra POO)
+const LOCAL_PRODUCTS = [
+    new PlatilloProduct("1", "Pescado Empanizado (Orden)", "Incluye pescado empanizado acompañado de arroz, frijol, tortillas y guarnición.", 120, "Orden", true, true, 120, ["Filete de pescado", "Pan molido", "Especias", "Arroz", "Frijoles", "Tortillas"], "15 min", "Mérida, Yucatán"),
+    new PlatilloProduct("2", "Pescado Empanizado (Media Orden)", "Incluye arroz, frijol, tortillas y guarnición. Una porción menor de pescado.", 90, "Media Orden", true, false, null, ["Filete de pescado", "Pan molido", "Arroz", "Frijoles", "Tortillas"], "12 min", "Mérida, Yucatán"),
+    new PlatilloProduct("3", "Camarón Empanizado (Orden)", "Incluye camarones empanizados de primera, arroz, frijol, tortillas y guarnición.", 170, "Orden", true, true, 170, ["Camarón fresco", "Empanizador", "Arroz", "Frijoles", "Tortillas", "Ensalada"], "18 min", "Campeche, México"),
+    new PlatilloProduct("4", "Camarón Empanizado (Media Orden)", "Incluye arroz, frijol, tortillas y guarnición. Porción menor de camarones.", 120, "Media Orden", true, false, null, ["Camarón fresco", "Empanizador", "Arroz", "Frijoles", "Tortillas"], "15 min", "Campeche, México"),
+    new PlatilloProduct("5", "Cóctel de Camarón (Copa)", "Cóctel preparado de camarón fresco con salsa especial de la casa, cilantro, cebolla y aguacate.", 160, "Copa", true, false, null, ["Camarón cocido", "Salsa coctelera", "Aguacate", "Cebolla", "Cilantro"], "10 min", "Yucatán"),
+    new PlatilloProduct("6", "Cazón Frito (Orden)", "Orden de cazón frito tradicional. Disponible únicamente miércoles y viernes.", 110, "Orden", true, true, 95, ["Cazón fresco", "Aceite vegetal", "Especias", "Acompañamientos"], "20 min", "Golfo de México"),
+    new PlatilloProduct("7", "Cazón Frito (Media Orden)", "Media orden de cazón frito tradicional. Disponible únicamente miércoles y viernes.", 75, "Media Orden", true, false, null, ["Cazón fresco", "Aceite vegetal", "Acompañamientos"], "15 min", "Golfo de México"),
+    new PlatilloProduct("8", "Cazón Entomatado (Orden)", "Delicioso cazón guisado con salsa de tomate y epazote. Disponible únicamente miércoles y viernes.", 110, "Orden", true, false, null, ["Cazón desmenuzado", "Tomates", "Cebolla", "Epazote"], "20 min", "Yucatán"),
+    new PlatilloProduct("9", "Cazón Entomatado (Media Orden)", "Media orden de cazón guisado con salsa de tomate. Disponible únicamente miércoles y viernes.", 75, "Media Orden", true, false, null, ["Cazón desmenuzado", "Tomates", "Cebolla", "Epazote"], "15 min", "Yucatán"),
+    new MariscoFrescoProduct("10", "Camarón Fresco Crudo", "Camarón crudo fresco sin cáscara ni cabeza. Medida Premium 21/25 ideal para platillos gourmet.", 260, "Kilogramo", true, false, null, ["Camarón crudo desvenado"], "5 min", "Campeche, México"),
+    new MariscoFrescoProduct("11", "Camarón Cocido con Cabeza", "Camarón cocido entero con cabeza. Medida estándar 41/50 listo para cocteles.", 150, "Kilogramo", true, false, null, ["Camarón cocido entero"], "5 min", "Celestún, Yucatán"),
+    new MariscoFrescoProduct("12", "Cazón Fresco Rebanado", "Filete o rebanadas de cazón fresco, limpio y listo para preparar en casa.", 120, "Kilogramo", true, false, null, ["Filete de cazón fresco"], "5 min", "Mérida, Yucatán"),
+    new TostadaProduct("13", "Tostada Bolsa Grande", "Bolsa grande de tostadas de maíz crujientes, ideales para acompañar ceviches y mariscos. (400g)", 50, "Bolsa 400g", true, false, null, ["Maíz", "Aceite", "Sal"], "3 min", "Mérida, Yucatán"),
+    new TostadaProduct("14", "Tostada Bolsa Mediana", "Bolsa mediana de tostadas de maíz crujientes. (150g)", 18, "Bolsa 150g", true, false, null, ["Maíz", "Aceite", "Sal"], "3 min", "Mérida, Yucatán"),
+    new FrituraProduct("15", "Postas de Camarón Fritas", "Camarones sazonados y fritos al momento. Se vende por kilogramo.", 360, "Kilogramo", true, false, null, ["Camarón entero", "Harina", "Sal", "Ajo"], "15 min", "Yucatán"),
+    new FrituraProduct("16", "Pescado Frito Corvinal", "Postas o filetes fritos de pescado Corvina de alta calidad. Se vende por kilogramo.", 330, "Kilogramo", true, false, null, ["Pescado Corvina", "Aceite", "Limón", "Sal"], "15 min", "Sisal, Yucatán"),
+    new FrituraProduct("17", "Pecho Frito de Mero", "Especialidad de la casa: pecho de Mero frito y crujiente. Se vende por kilogramo.", 330, "Kilogramo", true, false, null, ["Pecho de Mero", "Adobo de la casa", "Aceite"], "18 min", "Mérida, Yucatán")
 ];
 
 // Elementos del DOM
@@ -324,9 +139,24 @@ async function fetchProducts() {
         const response = await fetch(`${API_URL}/api/products`);
         if (!response.ok) throw new Error('Error al obtener los productos');
         
-        products = await response.json();
+        const data = await response.json();
+        
+        // Mapear los datos crudos a instancias de nuestras clases POO para mantener el encapsulamiento
+        products = data.map(p => {
+            const cat = (p.category || "").toLowerCase();
+            if (cat.includes('platillo')) {
+                return new PlatilloProduct(p.id, p.name, p.description, p.price, p.weight, p.available, p.isOffer, p.offerPrice, p.ingredients, p.preparationTime, p.origin);
+            } else if (cat.includes('fritura')) {
+                return new FrituraProduct(p.id, p.name, p.description, p.price, p.weight, p.available, p.isOffer, p.offerPrice, p.ingredients, p.preparationTime, p.origin);
+            } else if (cat.includes('tostada')) {
+                return new TostadaProduct(p.id, p.name, p.description, p.price, p.weight, p.available, p.isOffer, p.offerPrice, p.ingredients, p.preparationTime, p.origin);
+            } else {
+                return new MariscoFrescoProduct(p.id, p.name, p.description, p.price, p.weight, p.available, p.isOffer, p.offerPrice, p.ingredients, p.preparationTime, p.origin);
+            }
+        });
+        
     } catch (error) {
-        console.warn('Backend no disponible, cargando catálogo local:', error);
+        console.warn('Backend no disponible, cargando catálogo local con clases POO:', error);
         products = LOCAL_PRODUCTS;
     }
     

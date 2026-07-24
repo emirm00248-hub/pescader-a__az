@@ -27,11 +27,10 @@ namespace Pescaderia.Models
         public string Date { get; private set; }
         public List<OrderItem> Items { get; private set; }
         public decimal Subtotal { get; private set; }
-        public decimal Tax { get; private set; }
         public decimal Shipping { get; private set; }
         public decimal Total { get; private set; }
 
-        public Order(string id, string customerName, string customerPhone, string deliveryMethod, string paymentMethod, string shippingAddress, string date, List<OrderItem> items, decimal subtotal, decimal tax, decimal shipping, decimal total)
+        public Order(string id, string customerName, string customerPhone, string deliveryMethod, string paymentMethod, string shippingAddress, string date, List<OrderItem> items, decimal subtotal, decimal shipping, decimal total)
         {
             Id = id;
             CustomerName = customerName;
@@ -42,7 +41,6 @@ namespace Pescaderia.Models
             Date = date;
             Items = items;
             Subtotal = subtotal;
-            Tax = tax;
             Shipping = shipping;
             Total = total;
         }

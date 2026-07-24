@@ -59,7 +59,6 @@ namespace Pescaderia.Services
                 ));
             }
 
-            decimal tax = 0m;
             decimal total = subtotal + input.ShippingCost;
 
             var newOrder = new Order(
@@ -72,7 +71,6 @@ namespace Pescaderia.Services
                 DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 orderItems,
                 subtotal,
-                tax,
                 input.ShippingCost,
                 total
             );
